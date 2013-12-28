@@ -118,7 +118,7 @@ public class DemoCameraFragment extends CameraFragment {
     }
 
     @Override
-    public void saveImage(byte[] image) {
+    public String saveImage(byte[] image) {
       if (useSingleShotMode()) {
         singleShotProcessing=false;
 
@@ -131,9 +131,10 @@ public class DemoCameraFragment extends CameraFragment {
 
         DisplayActivity.imageToShow=image;
         startActivity(new Intent(getActivity(), DisplayActivity.class));
+        return null;
       }
       else {
-        super.saveImage(image);
+        return super.saveImage(image);
       }
     }
 

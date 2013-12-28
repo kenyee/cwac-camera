@@ -251,8 +251,9 @@ public interface CameraHost extends Camera.AutoFocusCallback {
    * 
    * @param image
    *          byte array of the picture data (e.g., JPEG)
+   * @return path to saved image
    */
-  void saveImage(byte[] image);
+  String saveImage(byte[] image);
 
   /**
    * @return true if you want the camera to keep the preview

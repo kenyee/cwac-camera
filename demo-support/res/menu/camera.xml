@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:myapp="http://schemas.android.com/apk/res-auto">
+
+  <item
+		android:id="@+id/camera"
+		android:icon="@android:drawable/ic_menu_camera"
+		myapp:showAsAction="ifRoom"
+		android:title="@string/take_picture">
+  </item>
+  <item
+		android:id="@+id/autofocus"
+		myapp:showAsAction="never"
+		android:title="@string/auto_focus"
+		android:enabled="false">
+  </item>
+  <item
+    android:id="@+id/single_shot"
+    android:checkable="true"
+    android:checked="false"
+    myapp:showAsAction="never"
+    android:title="@string/single_shot_mode">
+  </item>
+	
+</menu>

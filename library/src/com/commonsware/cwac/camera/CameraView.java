@@ -484,7 +484,7 @@ public class CameraView extends ViewGroup implements
       outputOrientation=
           getCameraPictureRotation(getActivity().getWindowManager()
                                                 .getDefaultDisplay()
-                                                .getOrientation());
+                                                .getRotation()/*getOrientation() deprecated*/);
     }
     else if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
       outputOrientation=(360 - displayOrientation) % 360;

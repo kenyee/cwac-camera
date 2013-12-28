@@ -86,7 +86,7 @@ public class CameraFragment extends Fragment {
    * @param cameraView
    *          the CameraView from your inflated layout
    */
-  protected void setCameraView(CameraView cameraView) {
+  public void setCameraView(CameraView cameraView) {
     this.cameraView=cameraView;
   }
 

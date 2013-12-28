@@ -172,7 +172,7 @@ public class SimpleCameraHost implements CameraHost {
   }
 
   @Override
-  public void saveImage(byte[] image) {
+  public String saveImage(byte[] image) {
     File photo=getPhotoPath();
 
     if (photo.exists()) {
@@ -197,6 +197,7 @@ public class SimpleCameraHost implements CameraHost {
     catch (java.io.IOException e) {
       handleException(e);
     }
+    return photo.getAbsolutePath();
   }
 
   @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -243,6 +244,9 @@ public class SimpleCameraHost implements CameraHost {
     File dir=getPhotoDirectory();
 
     dir.mkdirs();
+    if (!dir.exists()) {
+        Log.e("CWAC-Camera", String.format("Could not create directory %s", dir.getAbsolutePath()) );
+    }
 
     return(new File(dir, getPhotoFilename()));
   }

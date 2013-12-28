@@ -38,13 +38,17 @@ Step #2: Add a `CameraFragment` to your UI. You have two versions of
 - `com.commonsware.cwac.camera.CameraFragment` for use with native
 API Level 11+ fragments
 
+- `com.commonsware.cwac.camera.asl.CameraFragment` for use with
+the Android Support Library's ActionBarCompat (this is Google's official
+replacement for ActionBarSherlock)
+
 - `com.commonsware.cwac.camera.acl.CameraFragment` for use with
 the Android Support package's backport of fragments and
 [ActionBarSherlock](http://actionbarsherlock.com/), supporting API Level 9
 and 10
 
-(note: if you choose the latter, your project will also need
-to have the ActionBarSherlock library project)
+(note: if you choose the acl.CameraFragment, your project will also need
+to include the ActionBarSherlock library project)
 
 The `CameraFragment` is responsible for rendering your preview, so
 you need to size and position it as desired.
@@ -728,6 +732,7 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
+- v0.5.2: added ActionBarCompat support
 - v0.5.1: added face detection support
 - v0.5.0: zoom support, layout resource support, JavaDocs, etc.
 - v0.4.3: override `getPreferredPreviewSizeForVideo()` &mdash; if too low, use `getPreviewSize()`
