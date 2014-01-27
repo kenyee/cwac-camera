@@ -1,6 +1,8 @@
 NOTE: This is a fork of commonsguy's cwac-camera library w/ the addition of
-ActionBarCompat support instead of ActionBarSherlock.  Commonsguy has rejected
-the pull request adding this, so I'll remerge w/ his changes as long as I can.
+ActionBarCompat support instead of only ActionBarSherlock.  Commonsguy has rejected
+the pull request adding support for ActionBarCompat because Android 2.3 should
+be gone from the marketplace by the end of 2014, so I'll remerge w/ his 
+changes as long as I can.
 
 
 CWAC-Camera: Taking Pictures. Made Sensible.
