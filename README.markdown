@@ -17,9 +17,64 @@ required to successfully show a preview, take a picture, and take a video.
 behind a scalable API. Here, "scalable" means "simple things are simple,
 but complex things may be a bit complex".
 
-This Android library project is also
-[available as a JAR](https://github.com/commonsguy/cwac-camera/releases).
+In addition to what is written here,
 JavaDocs [are also available](http://javadocs.commonsware.com/cwac/camera/index.html).
+
+Installation
+------------
+If you are using Eclipse, Ant, or otherwise need JAR files,
+there are two JARs in
+[the releases area of the repo](https://github.com/commonsguy/cwac-camera/releases):
+
+- `camera-X.Y.Z.jar` represents the core classes, used in all environments
+- `camera-v9-X.Y.Z.jar` adds support for ActionBarSherlock
+
+(where `X.Y.Z` is the version number of the project, such as `0.5.4`)
+
+If you are using Gradle, or otherwise can use AAR artifacts,
+there are two such artifacts, mirroring the contents of the two JARs:
+one for native API Level 11 fragments, one for ActionBarSherlock.
+
+To integrate the core AAR, the Gradle recipe is:
+
+```groovy
+repositories {
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
+dependencies {
+    compile 'com.commonsware.cwac:camera:0.5.4'
+}
+```
+
+To integrate the `-v9` AAR for ActionBarSherlock support, the
+Gradle recipe is:
+
+```groovy
+repositories {
+    mavenCentral();
+
+    maven {
+        url "https://repo.commonsware.com.s3.amazonaws.com"
+    }
+}
+
+dependencies {
+    compile('com.commonsware.cwac:camera-v9:0.5.4') {
+      exclude module: 'support-v4'
+    }
+
+    compile 'com.android.support:support-v4:18.0.+'
+}
+```
+
+(where you can choose your own version number for the `support-v4` dependency
+as desired)
+
+You are also welcome to clone this repo and use `camera/` and
+`camera-v9/` as Android library projects in source form.
 
 If you are upgrading a project using CWAC-Camera to a new edition of the
 library, please see
@@ -28,9 +83,7 @@ library, please see
 Basic Usage
 -----------
 
-Step #1: Download the JAR and put it in the `libs/` directory of your
-project (or, if you prefer, clone this GitHub repo and add
-it as a library project to your main project).
+Step #1: Install the JARs or AARs as described above.
 
 Step #2: Add a `CameraFragment` to your UI. You have two versions of
 `CameraFragment` to choose from:
@@ -272,6 +325,14 @@ called before the `onComplete()` `Runnable`, if you happen to supply both.
 
 The main demo app adds a `SeekBar` and `VerticalSeekBar` to control zoom
 levels, so you can see how this is used.
+
+Note that some devices lie about their zoom capabilities. For example,
+the Motorola RAZR i's front-facing camera apparently does not support
+zoom, where `getMaxZoom()` still returns a positive value.
+`doesZoomReallyWork()` on your `CameraFragment` or `CameraView` will
+return `false` if zoom is known to be broken for the current camera
+on the current device. In this case, do not zoom, or your code may
+go "boom".
 
 ### Camera? #FAIL
 
@@ -576,6 +637,14 @@ returns the flash mode from `Camera.Parameters`. If you wish to change
 the flash mode, please do so in `adjustPictureParameters()` and/or
 `adjustPreviewParameters()`.
 
+Third-Party Code
+----------------
+kenyee has
+[an implementation of `CameraFragment`](https://github.com/kenyee/cwac-camera/blob/master/library/src/com/commonsware/cwac/camera/asl/CameraFragment.java)
+that simply extends from the
+Android Support package's backport of fragments, for use with the AppCompat
+backport of the action bar.
+
 Known Limitations
 -----------------
 These are above and beyond [the bugs filed for this project](https://github.com/commonsguy/cwac-camera/issues):
@@ -669,7 +738,7 @@ device was running (note: not shown for 0.4.x).
 | Nexus 10                            | X     | 4.4   |        |
 | Nexus One                           | X     | 2.3.6 |        |
 | Nexus S                             | X     | 4.1.2 |        |
-| Motorola RAZR i                     | X     | 4.1.2 | [78](https://github.com/commonsguy/cwac-camera/issues/78)     |
+| Motorola RAZR i                     | X     | 4.1.2 |        |
 | Samsung Galaxy Ace (GT-S5830M)      | X     | 2.3.6 |        |
 | Samsung Galaxy Grand (GT-I9090L)    | X     | 4.1.2 |        |
 | Samsung Galaxy Note 2 (GT-N7100)    | X     | 4.1.2 | [19](https://github.com/commonsguy/cwac-camera/issues/19)     |
@@ -694,7 +763,7 @@ if you are using the `.acl` flavor of `CameraFragment`.
 
 Version
 -------
-This is version v0.5.1 of this module, meaning it is rather new.
+This is version v0.5.2 of this module, meaning it is rather new.
 
 Demo
 ----
@@ -732,7 +801,9 @@ the fence may work, but it may not.
 
 Release Notes
 -------------
-- v0.5.2: added ActionBarCompat support
+- v0.5.4: refactored into two libraries, added Gradle support and AAR artifacts
+- v0.5.2b: added ActionBarCompat support
+- v0.5.2: face detection, zoom, and demo bug fixes
 - v0.5.1: added face detection support
 - v0.5.0: zoom support, layout resource support, JavaDocs, etc.
 - v0.4.3: override `getPreferredPreviewSizeForVideo()` &mdash; if too low, use `getPreviewSize()`
