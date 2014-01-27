@@ -1,3 +1,8 @@
+NOTE: This is a fork of commonsguy's cwac-camera library w/ the addition of
+ActionBarCompat support instead of ActionBarSherlock.  Commonsguy has rejected
+the pull request adding this, so I'll remerge w/ his changes as long as I can.
+
+
 CWAC-Camera: Taking Pictures. Made Sensible.
 ============================================
 
